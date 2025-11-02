@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BauzBot Command Generator 🌿</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(76, 175, 80, 0.2);
+            padding: 40px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #2e7d32;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(76, 175, 80, 0.1);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #66bb6a;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .command-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%);
+            border-radius: 15px;
+            border-left: 5px solid #4caf50;
+            transition: all 0.3s ease;
+        }
+
+        .command-section:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
+        }
+
+        .command-title {
+            color: #2e7d32;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .command-emoji {
+            font-size: 1.2em;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            color: #388e3c;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #a5d6a7;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .output-box {
+            background: #1e1e1e;
+            color: #4caf50;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            margin-top: 15px;
+            position: relative;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        .copied {
+            background: linear-gradient(135deg, #81c784 0%, #66bb6a 100%);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            cursor: pointer;
+        }
+
+        .helper-text {
+            font-size: 0.85em;
+            color: #66bb6a;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .row {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+
+        .sparkle {
+            display: inline-block;
+            animation: sparkle 2s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span class="sparkle">✨</span> BauzBot Commands <span class="sparkle">✨</span></h1>
+        <p class="subtitle">Generate your commands with ease! 🌿</p>
+
+        <!-- BULK CREATE -->
+        <div class="command-section">
+            <div class="command-title">
+                <span class="command-emoji">📦</span>
+                <span>Bulk Create Channels</span>
+            </div>
+            <div class="input-group">
+                <label>Category Name</label>
+                <input type="text" id="bc-category" placeholder="e.g., Spawn">
+            </div>
+            <div class="input-group">
+                <label>Prefix</label>
+                <input type="text" id="bc-prefix" placeholder="e.g., spawn-">
+            </div>
+            <div class="input-group">
+                <label>Suffix (optional)</label>
+                <input type="text" id="bc-suffix" placeholder="e.g., -active">
+            </div>
+            <div class="row">
+                <div class="input-group">
+                    <label>Start Number</label>
+                    <input type="number" id="bc-start" value="1">
+                </div>
+                <div class="input-group">
+                    <label>End Number</label>
+                    <input type="number" id="bc-end" value="25">
+                </div>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="bc-confirm">
+                <label>Add --confirm (execute immediately)</label>
+            </div>
+            <div class="output-box" id="bc-output">B.bulkcreate "Category" "prefix-" 1 25</div>
+            <button class="copy-btn" onclick="copyCommand('bc-output')">📋 Copy Command</button>
+        </div>
+
+        <!-- BULK REPLACE -->
+        <div class="command-section">
+            <div class="command-title">
+                <span class="command-emoji">🔄</span>
+                <span>Bulk Replace Text</span>
+            </div>
+            <div class="input-group">
+                <label>Old Text (to replace)</label>
+                <input type="text" id="br-old" placeholder="e.g., old-prefix">
+            </div>
+            <div class="input-group">
+                <label>New Text (replacement)</label>
+                <input type="text" id="br-new" placeholder="e.g., new-prefix">
+            </div>
+            <div class="input-group">
+                <label>Channel Pattern (to search)</label>
+                <input type="text" id="br-pattern" placeholder="e.g., spawn">
+                <div class="helper-text">Finds channels containing this text</div>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="br-confirm">
+                <label>Add --confirm (execute immediately)</label>
+            </div>
+            <div class="output-box" id="br-output">B.bulkreplace "old" "new" "pattern"</div>
+            <button class="copy-btn" onclick="copyCommand('br-output')">📋 Copy Command</button>
+        </div>
+
+
+    </div>
+
+    <script>
+        // Bulk Create
+        function updateBulkCreate() {
+            const category = document.getElementById('bc-category').value || 'Category';
+            const prefix = document.getElementById('bc-prefix').value || 'prefix-';
+            const suffix = document.getElementById('bc-suffix').value;
+            const start = document.getElementById('bc-start').value || '1';
+            const end = document.getElementById('bc-end').value || '25';
+            const confirm = document.getElementById('bc-confirm').checked;
+
+            let cmd = `B.bulkcreate "${category}" "${prefix}"`;
+            if (suffix) {
+                cmd += ` "${suffix}"`;
+            }
+            cmd += ` ${start} ${end}`;
+            if (confirm) {
+                cmd += ' --confirm';
+            }
+
+            document.getElementById('bc-output').textContent = cmd;
+        }
+
+        // Bulk Replace
+        function updateBulkReplace() {
+            const oldText = document.getElementById('br-old').value || 'old';
+            const newText = document.getElementById('br-new').value || 'new';
+            const pattern = document.getElementById('br-pattern').value || 'pattern';
+            const confirm = document.getElementById('br-confirm').checked;
+
+            let cmd = `B.bulkreplace "${oldText}" "${newText}" "${pattern}"`;
+            if (confirm) {
+                cmd += ' --confirm';
+            }
+
+            document.getElementById('br-output').textContent = cmd;
+        }
+
+        // Move Single Channel
+        function updateMove() {
+            const channel = document.getElementById('mv-channel').value || 'channel';
+            const category = document.getElementById('mv-category').value || 'Category';
+
+            const cmd = `B.move ${channel} ${category}`;
+            document.getElementById('mv-output').textContent = cmd;
+        }
+
+        // Single Replace
+        function updateSingleReplace() {
+            const oldText = document.getElementById('sr-old').value || 'old';
+            const newText = document.getElementById('sr-new').value || 'new';
+
+            const cmd = `B.replace "${oldText}" "${newText}"`;
+            document.getElementById('sr-output').textContent = cmd;
+        }
+
+        // Copy to clipboard
+        function copyCommand(outputId) {
+            const text = document.getElementById(outputId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copied!';
+                btn.classList.add('copied');
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Add event listeners
+        document.getElementById('bc-category').addEventListener('input', updateBulkCreate);
+        document.getElementById('bc-prefix').addEventListener('input', updateBulkCreate);
+        document.getElementById('bc-suffix').addEventListener('input', updateBulkCreate);
+        document.getElementById('bc-start').addEventListener('input', updateBulkCreate);
+        document.getElementById('bc-end').addEventListener('input', updateBulkCreate);
+        document.getElementById('bc-confirm').addEventListener('change', updateBulkCreate);
+
+        document.getElementById('br-old').addEventListener('input', updateBulkReplace);
+        document.getElementById('br-new').addEventListener('input', updateBulkReplace);
+        document.getElementById('br-pattern').addEventListener('input', updateBulkReplace);
+        document.getElementById('br-confirm').addEventListener('change', updateBulkReplace);
+
+        document.getElementById('mv-channel').addEventListener('input', updateMove);
+        document.getElementById('mv-category').addEventListener('input', updateMove);
+
+        document.getElementById('sr-old').addEventListener('input', updateSingleReplace);
+        document.getElementById('sr-new').addEventListener('input', updateSingleReplace);
+
+        // Initialize
+        updateBulkCreate();
+        updateBulkReplace();
+        updateMove();
+        updateSingleReplace();
+    </script>
+</body>
+</html>
